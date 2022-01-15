@@ -1,5 +1,7 @@
 import './App.css';
+import './media/font.otf'
 import './media/banner.png';
+import introVideo from './media/Teaser_25s.mp4';
 import React from 'react';
 import {useState, useEffect} from 'react';
 import $ from 'jquery';
@@ -32,9 +34,12 @@ function App() {
     "Right click, or you're a right tit."
   ]);
 
-
-  //Onload
-  useEffect(() => {
+  //Render intro
+  const intro = () => {
+    $('#video').fadeOut();
+    $('.apeCape').css('opacity', '0.5');
+    $('.menu').fadeIn();
+    console.log("started intro....");
     //for each into sentence
     let randomSlogan = slogans[Math.floor(Math.random() * slogans.length)];
     $('#slogan').text(randomSlogan);
@@ -47,25 +52,27 @@ function App() {
           });
         }, i * 5000);
     });
-  });
+  }
 
   //Render
   return (
     <>
       <div className='app'>
-          <div className='menu'>
+          <div hidden className='menu'>
             <div className='menuItem'>
               <h1 className='pageTitle'>NFT Blocker</h1> 
             </div>            
-            <div className='menuItemSeperator'></div>
-            
+            <div className='menuItemSeperator'></div>            
             <div className='menuItem'>
               <h3 className='slogan' id="slogan"></h3> 
             </div>            
           </div>
-          <div className='content'>
+          <div className='content'>            
+            <div className='introVideo' id='video'>
+                <video controls onLoad={$('.video').volume = 0.2} className='video' autoPlay onEnded={intro} src={introVideo} id="video"></video>
+            </div>
             <div className='intro'>
-              <p id="fadingSentence"></p>
+              <p hidden id="fadingSentence"></p>
             </div>
           </div>
       </div>

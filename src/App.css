@@ -1,15 +1,24 @@
 :root {
-    --main-color: hotpink;
-    --secondary-color:rgb(161, 0, 126);
+    --main-color: #E3F100;
+    --secondary-color:rgb(153, 150, 0);
     --background-color: gainsboro;
-    --font-color: black;
-  }
+    --font-color: #E3F100;
+}
+
+@font-face {
+font-family: myFirstFont;
+    src: url(/src/media/font.otf);
+}
 
 body, html, .app{
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: sans-serif;
+    font-family: myFirstFont;
+}
+
+body{
+    background-color: black;
 }
 
 .app{
@@ -20,9 +29,9 @@ body, html, .app{
     position: absolute;
     min-width: 100%;
     min-height: 100%;
-    background-image: url(/src/media/banner.png);
+    background-image: url(/src/media/background.jpg);
     background-repeat: repeat;
-    opacity: 0.1;
+    opacity: 0.8;
     z-index: -1;
 
 }
@@ -31,7 +40,7 @@ body, html, .app{
     float: left;
     width: 100%;
     height: 80px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--main-color);
 }
 
 .menuItem{
@@ -45,23 +54,25 @@ body, html, .app{
     height: 100%;
     width: 2px;
     margin-left: 20px;
-    background-color: black;
+    background-color: var(--main-color);
 }
 
 .slogan{
     margin-top: 30px;
+    color: var(--font-color);
 }
 
 .pageTitle{
     color: var(--font-color);
     font-weight: bolder;
+    border-bottom: var(--main-color) 4px solid;
 }
 
 .content{
     float: left;
     width: 100%;
     height: calc(100% - 100px);
-    margin-top: 200px;
+    margin-top: 20px;
     
 }
 
@@ -70,18 +81,24 @@ body, html, .app{
     font-weight: bold;
     width: calc(100% - 400px);
     text-align: center;
+    margin-top: 200px;
     margin-left: 200px;
     margin-right: 200px;
     font-size: 50px;
+    color: var(--font-color);
 }
 
-.fade-in {
-    transition: opacity 1s ease;
+.introVideo{    
+    width: calc(100% - 200px);
+    text-align: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    height: 800px;
 }
 
-.fade-out {
-    opacity: 0;
-    transition: opacity 1s ease;
+.video{
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -89,6 +106,10 @@ body, html, .app{
     .intro {
         margin: 80px;        
         width: calc(100% - 160px);
+    }
+
+    .introVideo{
+        width: 100%;
     }
 }
 
