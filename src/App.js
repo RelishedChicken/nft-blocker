@@ -39,11 +39,21 @@ function App() {
     "'I been hacked. All my apes gone. Please help me.'"
   ]);
 
+  //Start video
   const start = () => {
     $('.enter').fadeOut(()=>{
       $('.enterWrapper').remove();
       $('#videoWrapper').fadeIn();
       document.getElementById('video').play();
+    });
+  }
+
+  //Skip video
+  const skipIntro = () => {    
+    $('.skip').fadeOut();
+    $('.enter').fadeOut(()=>{
+      $('.enterWrapper').remove();
+      intro();
     });
   }
 
@@ -90,6 +100,7 @@ function App() {
           <div className='content'>        
             <div className='enterWrapper'>
               <h3 className='enter'><a onClick={start}>ENTER</a></h3>
+              <small className='skip'><a onClick={skipIntro}>skip intro &gt;&gt;</a></small>
             </div>    
             <div hidden className='introVideo' id='videoWrapper'>
                 <video id='video' className='video' onEnded={intro} src={introVideo} id="video"></video>
@@ -98,7 +109,7 @@ function App() {
               <p id="fadingSentence"></p>
             </div>
             <div hidden className='footer'>
-              <p>No apes were hamed in the making of this | <a className='link' href='https://twitter.com/_ThomasPearson_'>Thomas Pearson</a> & <a target='_blank' className='link' href='https://twitter.com/vadgamaveeraj'>V</a></p>
+              <p>No apes were harmed in the making of this | <a target='_blank' className='link' href='https://twitter.com/_ThomasPearson_'>Thomas Pearson</a> & <a target='_blank' className='link' href='https://twitter.com/vadgamaveeraj'>V</a></p>
             </div>
           </div>
       </div>
