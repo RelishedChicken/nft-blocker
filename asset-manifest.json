@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/nft-blocker/static/css/main.7639aff2.css",
-    "main.js": "/nft-blocker/static/js/main.e77380af.js",
+    "main.js": "/nft-blocker/static/js/main.adb24314.js",
     "static/media/banner.png": "/nft-blocker/static/media/banner.a32936c5b9b0fccbb796.png",
     "index.html": "/nft-blocker/index.html",
     "main.7639aff2.css.map": "/nft-blocker/static/css/main.7639aff2.css.map",
-    "main.e77380af.js.map": "/nft-blocker/static/js/main.e77380af.js.map"
+    "main.adb24314.js.map": "/nft-blocker/static/js/main.adb24314.js.map"
   },
   "entrypoints": [
     "static/css/main.7639aff2.css",
-    "static/js/main.e77380af.js"
+    "static/js/main.adb24314.js"
   ]
 }
