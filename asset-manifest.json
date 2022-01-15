@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/nft-blocker/static/css/main.9bc93e9f.css",
-    "main.js": "/nft-blocker/static/js/main.2a70d1e4.js",
+    "main.css": "/nft-blocker/static/css/main.132a2cf0.css",
+    "main.js": "/nft-blocker/static/js/main.49f9da92.js",
     "static/media/introVideo.mp4": "/nft-blocker/static/media/introVideo.9a2cedfdda200f8b9dd1.mp4",
     "static/media/banner.png": "/nft-blocker/static/media/banner.a32936c5b9b0fccbb796.png",
     "static/media/background.jpg": "/nft-blocker/static/media/background.95254b3f6b98c89c6ef9.jpg",
     "static/media/font.otf": "/nft-blocker/static/media/font.7ce894e12078ca8c5134.otf",
+    "static/media/button.svg": "/nft-blocker/static/media/button.c9e31523f01b6884ffe67651681f6a29.svg",
     "static/media/logo.svg": "/nft-blocker/static/media/logo.b1cdd51b08ba13441b80215112c1d76e.svg",
     "index.html": "/nft-blocker/index.html",
-    "main.9bc93e9f.css.map": "/nft-blocker/static/css/main.9bc93e9f.css.map",
-    "main.2a70d1e4.js.map": "/nft-blocker/static/js/main.2a70d1e4.js.map"
+    "main.132a2cf0.css.map": "/nft-blocker/static/css/main.132a2cf0.css.map",
+    "main.49f9da92.js.map": "/nft-blocker/static/js/main.49f9da92.js.map"
   },
   "entrypoints": [
-    "static/css/main.9bc93e9f.css",
-    "static/js/main.2a70d1e4.js"
+    "static/css/main.132a2cf0.css",
+    "static/js/main.49f9da92.js"
   ]
 }
