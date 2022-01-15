@@ -1,7 +1,8 @@
 import './App.css';
 import './media/font.otf'
 import './media/banner.png';
-import introVideo from './media/Teaser_25s.mp4';
+import logo from './media/logo.svg'
+import introVideo from './media/introVideo.mp4';
 import React from 'react';
 import {useState, useEffect} from 'react';
 import $ from 'jquery';
@@ -9,6 +10,9 @@ import $ from 'jquery';
 function App() {
 
   //State
+
+  const[devMode] = useState(false);
+
   const [introArray, setIntroArray] = useState(
     [
       "Hi.",
@@ -31,14 +35,22 @@ function App() {
     "'Please don't right click'",
     "#ethBurnsForests",
     "#ThomasPearson",
-    "Right click, or you're a right tit."
+    "Right click, or you're a right tit.",
+    "'I been hacked. All my apes gone. Please help me.'"
   ]);
+
+  useEffect(() => {
+    if(devMode){
+      intro();
+    }
+  });
 
   //Render intro
   const intro = () => {
     $('#video').fadeOut();
     $('.apeCape').css('opacity', '0.5');
-    $('.menu').fadeIn();
+    $('.menu').fadeIn();    
+    $('.footer').fadeIn();
     console.log("started intro....");
     //for each into sentence
     let randomSlogan = slogans[Math.floor(Math.random() * slogans.length)];
@@ -59,6 +71,9 @@ function App() {
     <>
       <div className='app'>
           <div hidden className='menu'>
+            <div className='menuItem'>              
+              <img className='logo' src={logo} alt='NFT Nuke Logo'/>
+            </div>
             <div className='menuItem'>
               <h1 className='pageTitle'>NFT Blocker</h1> 
             </div>            
@@ -69,10 +84,13 @@ function App() {
           </div>
           <div className='content'>            
             <div className='introVideo' id='video'>
-                <video controls onLoad={$('.video').volume = 0.2} className='video' autoPlay onEnded={intro} src={introVideo} id="video"></video>
+                <video onLoad={$('.video').volume = 0.2} className='video' autoPlay onEnded={intro} src={introVideo} id="video"></video>
             </div>
             <div className='intro'>
               <p hidden id="fadingSentence"></p>
+            </div>
+            <div hidden className='footer'>
+              <p>No apes were hamed in the making of this | <a className='link' href='https://twitter.com/_ThomasPearson_'>Thomas Pearson</a> & <a target='_blank' className='link' href='https://twitter.com/vadgamaveeraj'>V</a></p>
             </div>
           </div>
       </div>
