@@ -17,13 +17,13 @@ function App() {
 
   const [introArray, setIntroArray] = useState(
     [
-      /*"Hi.",
+      "Hi.",
       "I'm sure you're here for the same reason as many.",
       "Sick of seeing lions and apes that look like they were drawn by three year olds?",
       "Annoyed of seeing CryptoBros circle-jerking thier way to the 'top'?",
       "Just want a much better Twitter timeline?",
       "Whatever the reason, NFT Nuke has you covered.",      
-      "So go ahead. Atomize those CryptoBros."*/
+      "So go ahead. Atomize those CryptoBros."
     ]
   );
 
