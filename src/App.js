@@ -28,7 +28,8 @@ function App() {
     "'Join my crypto program I promise it's not a pyramid scheme!'",
     "'Please don't right click'",
     "#ethBurnsForests",
-    "#ThomasPearson"
+    "#ThomasPearson",
+    "Right click, or you're a right tit."
   ]);
 
 
