@@ -36,6 +36,21 @@ body{
 
 }
 
+.enterWrapper{    
+    float: left;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding-top: 200px;
+    
+}
+
+.enter{
+    font-size: 50px;
+    color: var(--font-color);
+    text-decoration: var(--font-color) underline;
+}
+
 .menu{
     float: left;
     width: 100%;
@@ -95,16 +110,17 @@ body{
 }
 
 .introVideo{    
-    width: calc(100% - 200px);
     text-align: center;
     margin-left: 100px;
     margin-right: 100px;
     height: 800px;
+    
 }
 
 .video{
-    width: 100%;
     height: 100%;
+    -webkit-box-shadow: 0px 0px 44px 9px #000000; 
+    box-shadow: 0px 0px 44px 9px #000000;
 }
 
 .link{

@@ -20,7 +20,7 @@ function App() {
       "Sick of seeing lions and apes that look like they were drawn by three year olds?",
       "Annoyed of seeing CryptoBros circle-jerking thier way to the 'top'?",
       "Just want a much better Twitter timeline?",
-      "Whatever the reason, NFTBlock has you covered.",      
+      "Whatever the reason, NFT Nuke has you covered.",      
       "Coming soon to an ad-ridden browser near you."
     ]
   );
@@ -39,15 +39,19 @@ function App() {
     "'I been hacked. All my apes gone. Please help me.'"
   ]);
 
-  useEffect(() => {
-    if(devMode){
-      intro();
-    }
-  });
+  const start = () => {
+    $('.enter').fadeOut(()=>{
+      $('.enterWrapper').remove();
+      $('#videoWrapper').fadeIn();
+      document.getElementById('video').play();
+    });
+  }
 
   //Render intro
-  const intro = () => {
-    $('#video').fadeOut();
+  const intro = () => {    
+    $('#videoWrapper').fadeOut();    
+    $('#videoWrapper').remove();
+    $('#introWrapper').fadeIn();
     $('.apeCape').css('opacity', '0.5');
     $('.menu').fadeIn();    
     $('.footer').fadeIn();
@@ -66,6 +70,7 @@ function App() {
     });
   }
 
+
   //Render
   return (
     <>
@@ -82,12 +87,15 @@ function App() {
               <h3 className='slogan' id="slogan"></h3> 
             </div>            
           </div>
-          <div className='content'>            
-            <div className='introVideo' id='video'>
-                <video onLoad={$('.video').volume = 0.2} className='video' autoPlay onEnded={intro} src={introVideo} id="video"></video>
+          <div className='content'>        
+            <div className='enterWrapper'>
+              <h3 className='enter'><a onClick={start}>ENTER</a></h3>
+            </div>    
+            <div hidden className='introVideo' id='videoWrapper'>
+                <video id='video' className='video' onEnded={intro} src={introVideo} id="video"></video>
             </div>
-            <div className='intro'>
-              <p hidden id="fadingSentence"></p>
+            <div hidden id='introWrapper' className='intro'>
+              <p id="fadingSentence"></p>
             </div>
             <div hidden className='footer'>
               <p>No apes were hamed in the making of this | <a className='link' href='https://twitter.com/_ThomasPearson_'>Thomas Pearson</a> & <a target='_blank' className='link' href='https://twitter.com/vadgamaveeraj'>V</a></p>
