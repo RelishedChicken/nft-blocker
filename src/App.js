@@ -1,19 +1,24 @@
+//Media & CSS
 import './App.css';
 import './media/font.otf'
 import './media/banner.png';
 import logo from './media/logo.svg'
 import introVideo from './media/introVideo.mp4';
 import button from './media/button.svg'
+import twitterIcon from './media/twitter_icon.svg';
+import fakeUser from './media/button.svg';
+
+//Imports
 import React from 'react';
-import config from './config.json';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import $ from 'jquery';
 
 function App() {
 
   //State
-
-  const[devMode] = useState(false);
+  const[buttonClicked, setButtonClicked] = useState(false);
+  const[uiLoaded, setUiLoaded] = useState(false);  
+  const[user, setUser] = useState(null);  
 
   const [introArray, setIntroArray] = useState(
     [
@@ -55,8 +60,7 @@ function App() {
   const skipIntro = () => {    
     $('.skip').fadeOut();
     $('.enter').fadeOut(()=>{
-      $('.enterWrapper').remove();
-      intro();
+      enableButton();
     });
   }
 
@@ -67,10 +71,13 @@ function App() {
     $('#videoWrapper').remove();
 
     //Fade in paragraphs, menu and footer
-    $('#introWrapper').fadeIn();
-    $('.apeCape').css('opacity', '0.5');
-    $('.menu').fadeIn();    
-    $('.footer').fadeIn();
+    if(!uiLoaded){
+      $('#introWrapper').fadeIn();
+      $('.apeCape').css('opacity', '0.5');
+      $('.menu').fadeIn();    
+      $('.footer').fadeIn();
+      setUiLoaded(true);
+    }
     
     //Grab and show a random slogan
     let randomSlogan = slogans[Math.floor(Math.random() * slogans.length)];
@@ -89,38 +96,84 @@ function App() {
     
     setTimeout(() => {
       enableButton();
-    }, introArray.length * 4000)
+    }, introArray.length * 4000);
   
 
   }
 
   const enableButton = () => {
-    //Remove story elements    
+    //Remove story elements
+    $('.enterWrapper').fadeOut();
+    $('.enterWrapper').remove();
+    $('#videoWrapper').fadeOut();
+    $('#videoWrapper').remove();
     $('#introWrapper').fadeOut();
     $('#introWrapper').remove();
+    
+    //Fade in paragraphs, menu and footer
+    if(!uiLoaded){
+      $('#introWrapper').fadeIn();
+      $('.apeCape').css('opacity', '0.5');
+      $('.menu').fadeIn();    
+      $('.footer').fadeIn();
+      setUiLoaded(true);
+    }
 
     //Show button
     $('#buttonWrapper').fadeIn();
-    
-
     console.log("Button now available..");
 
   }
 
+  //Get auth URL
+  const authUser = () => {
+    console.log('retrieving auth');
+
+    $.ajax({
+      url: '/ajax/twitter_auth.php'
+    }).done(function(data){
+      data = JSON.parse(data);
+      if(data.successful){
+        let twitterAuthWindow = window.open(data.url, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400" );
+        var timer = setInterval(function() { 
+          if(twitterAuthWindow.closed) {
+              clearInterval(timer);
+              //Now get user info that its available (once window closes)
+              getUser();
+          }
+        }, 1000);
+      }
+    });
+  }
+
+  //Get user data
+  const getUser = () => {
+    $.ajax({
+      url: '/ajax/get_user.php'
+    }).done(function(data){
+      data = JSON.parse(data);
+      console.log(data);
+      setUser(data);
+    });
+  }
+
+  //When authed, nukes NFT users (lol)
   const nuke = () => {
     console.log("boom");
 
     //Nuke spin loop
     let deg = 0;
 
-    
-    setInterval(() => {      
-      deg += 1;
-      $('.button').css('transform', 'rotate('+deg+'deg)');      
-      if(deg === 360){
-        deg = 0;
-      }
-    }, 2);
+    if(!buttonClicked){
+      setInterval(() => {      
+        deg += 5;
+        $('.button').css('transform', 'rotate('+deg+'deg)');      
+        if(deg === 360){
+          deg = 0;
+        }
+      }, 2);
+      setButtonClicked(true);
+    }
 
   }
 
@@ -138,7 +191,23 @@ function App() {
             <div className='menuItemSeperator'></div>            
             <div className='menuItem'>
               <h3 className='slogan' id="slogan"></h3> 
-            </div>            
+            </div>
+            
+              <div style={{float: 'right'}} className='menuItem'>
+                <div className='user'>
+                {user != null ?
+                  <>
+                    <img className='userProfile' src={user.profile_image_url_https} alt="User"></img>
+                    <p className='userName'>{user.name}</p>
+                  </>                  
+                  :
+                  <>
+                    <img className='userProfile' src={fakeUser} alt="User"></img>
+                    <p className='userName'>Connect to Twitter!</p>
+                  </>
+                }
+                </div>
+              </div>
           </div>
           <div className='content'>        
             <div className='enterWrapper'>
@@ -152,10 +221,10 @@ function App() {
               <p id="fadingSentence"></p>
             </div>
             <div hidden id='buttonWrapper'>              
-              <img onClick={nuke} className='button' src={button} alt='Press to Nuke'></img>
+              <img onClick={(user == null) ? authUser : nuke} className='button' src={button} alt='Press to Nuke'></img>
             </div>
             <div hidden className='footer'>
-              <p>No apes were harmed in the making of this | <a target='_blank' className='link' href='https://twitter.com/_ThomasPearson_'>Thomas Pearson</a> & <a target='_blank' className='link' href='https://twitter.com/vadgamaveeraj'>V</a></p>
+              <p>No apes were harmed in the making of this | <a target='_blank' className='link' href='https://twitter.com/_ThomasPearson_'><img height="13px" src={twitterIcon} alt='Thomas Pearson Twitter'></img>&nbsp;Thomas Pearson</a> & <a target='_blank' className='link' href='https://twitter.com/vadgamaveeraj'><img height="13px" src={twitterIcon} alt='V Twitter'></img>&nbsp;V</a></p>
             </div>
           </div>
       </div>

@@ -81,6 +81,26 @@ body{
     background-color: var(--main-color);
 }
 
+.user{
+    margin-right: 30px;
+    height: 100%;    
+}
+
+.userProfile{
+    float: left;
+    margin-top: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.userName{
+    float: left;
+    margin-top: 27px;
+    margin-left: 15px;
+    color:var(--font-color);
+}
+
 .slogan{
     margin-top: 30px;
     color: var(--font-color);
@@ -149,6 +169,19 @@ body{
     width: 400px;
     margin-left: calc((100% / 2) - 200px);
     margin-right: calc((100% / 2) - 200px);
+}
+
+.twitterConnect{
+    margin-top: 50px;
+    border: var(--font-color) solid 2px;
+    background-color: #00000000;
+    color: var(--font-color);
+    font-size: 30px;
+    width: 400px;
+    margin-left: calc((100% / 2) - 200px);
+    margin-right: calc((100% / 2) - 200px);    
+    font-family: myFirstFont;
+    cursor: pointer;
 }
 
 .link{
