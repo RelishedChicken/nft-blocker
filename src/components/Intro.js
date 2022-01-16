@@ -25,7 +25,6 @@ function Intro(props){
     //Start intro sequence
     useEffect(() => {
         if(props.startIntro === true){
-            console.log("started intro...");
             $('#videoWrapper').fadeIn();
             $('#video')[0].play();
         }
@@ -33,7 +32,6 @@ function Intro(props){
 
     //Continue to text story
     const textIntro = () => {
-        console.log("started text intro");
 
         //Set video as complete
         props.videoComplete();

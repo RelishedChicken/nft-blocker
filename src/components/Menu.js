@@ -50,12 +50,17 @@ function Menu(props) {
                 {props.user != null ?
                   <>
                     <img className='userProfile' src={props.user.profile_image_url_https} alt="User"></img>
-                    <p className='userName'>{props.user.name}</p>
+                    <div className='userDetails'>
+                      <p className='userName'>Connect to Twitter!</p>
+                      <small onClick={() => props.signOut()} className='userLogout'>Sign Out</small>
+                    </div>
                   </>                  
                   :
                   <>
                     <img className='userProfile' src={fakeUser} alt="User"></img>
-                    <p className='userName'>Connect to Twitter!</p>
+                    <div className='userDetails'>
+                      <p className='userName'>Connect to Twitter!</p>
+                    </div>
                   </>
                 }
                 </div>

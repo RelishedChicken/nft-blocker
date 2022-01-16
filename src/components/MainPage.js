@@ -9,9 +9,18 @@ import {useState, useEffect} from 'react';
 import $ from 'jquery';
 
 function MainPage(props){
+
+    const handleButton = () => {
+        if(props.user != null){
+            props.nuke();
+        }else{
+            props.authUser();
+        }
+    }
+
     return(
         <div hidden id='buttonWrapper'>              
-            <img onClick={(props.user == null) ? props.authUser : props.nuke} className='button' src={button} alt='Press to Nuke'></img>
+            <img onClick={() => handleButton()} className='button' src={button} alt='Press to Nuke'></img>
         </div>
     );
 }

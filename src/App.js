@@ -21,11 +21,16 @@ function App() {
   const[startIntro, setStartIntro] = useState(0);
   const[buttonClicked, setButtonClicked] = useState(false);
   const[user, setUser] = useState(null);
+  const[authCheck, setAuthCheck] = useState(false);
 
   //Check if auth url is there
   useEffect(() => {
-    if(window.location.href.includes('?auth=true')){
+    if(window.location.href.includes('?auth=true') && !authCheck){
       enter(true);
+      setAuthCheck(true);
+    }else if(window.location.href.includes('?auth=true') && user == null && !authCheck){
+      authUser();
+      setAuthCheck(true);
     }
   })
 
@@ -36,9 +41,8 @@ function App() {
       url: '/ajax/twitter_auth.php'
     }).done(function(data){
       data = JSON.parse(data);
-
       //If user not previously authed
-      if(!data.prevAuth && data.successful){
+      if(data.successful){
         let twitterAuthWindow = window.location.href = data.url;
         var timer = setInterval(function() { 
           if(twitterAuthWindow.closed) {
@@ -47,10 +51,19 @@ function App() {
               getUser();
           }
         }, 1000);
-      }else{
-        getUser();
       }
     });
+  }
+
+  const signOut = () => {
+    
+    console.log("Deauthenticating user...");
+    $.ajax({
+      url: '/ajax/deauth.php'
+    }).done(function(data){
+      window.location.href = "https://www.nftnuke.co.uk";
+    });
+
   }
 
   //Get user data
@@ -60,10 +73,20 @@ function App() {
       url: '/ajax/get_user.php'
     }).done(function(data){
       data = JSON.parse(data);
-      console.log(data);
-      setUser(data);
+
+      //check no auth error
+      if(!data.hasOwnProperty('errors')){
+        setUser(data);
+      }else{
+        setUser(null);
+        console.log(data.errors);
+        alert(data.errors[0].message);
+      }
     });
   } 
+
+
+  //VV VISUALS VV
 
   //Enter page clicked
   const enter = (skip) => {
@@ -74,9 +97,9 @@ function App() {
         $('.apeCape').css('opacity', '0.3');
       });
     }else{
-      $('.enterWrapper').fadeOut(() => {        
-        setStartIntro(false);
+      $('.enterWrapper').fadeOut(() => {
         introComplete();
+        getUser();
       });
     }
   }
@@ -84,10 +107,11 @@ function App() {
   //Video complete
   const videoComplete = () => {    
     console.log("Video is complete...");
-    $('#videoWrapper').fadeOut();   
-    $('#introWrapper').fadeIn();
-    $('.menu').fadeIn();
-    $('.footer').fadeIn();
+    $('#videoWrapper').fadeOut(()=>{
+      $('#introWrapper').fadeIn();
+      $('.menu').fadeIn();
+      $('.footer').fadeIn();
+    });   
   }
 
   //Intro complete
@@ -127,7 +151,7 @@ function App() {
   return (
     <>
       <div className='app'>
-          <Menu user={user}/>
+          <Menu user={user} signOut={signOut}/>
           <div className='content'>
             <EnterScreen enter={enter}/>
             <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
