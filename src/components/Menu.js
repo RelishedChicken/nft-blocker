@@ -51,7 +51,7 @@ function Menu(props) {
                   <>
                     <img className='userProfile' src={props.user.profile_image_url_https} alt="User"></img>
                     <div className='userDetails'>
-                      <p className='userName'>Connect to Twitter!</p>
+                      <p className='userName'>{props.user.name}</p>
                       <small onClick={() => props.signOut()} className='userLogout'>Sign Out</small>
                     </div>
                   </>                  

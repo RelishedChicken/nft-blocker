@@ -31,6 +31,16 @@ function App() {
     }else if(window.location.href.includes('?auth=true') && user == null && !authCheck){
       authUser();
       setAuthCheck(true);
+    }else if(user == null && !authCheck){
+      $.ajax({
+        url: '/ajax/check_auth.php'
+      }).done(function(data){
+        data = JSON.parse(data);
+        if(data == true){
+          enter(true);
+          getUser();
+        }
+      })
     }
   })
 
@@ -42,7 +52,7 @@ function App() {
     }).done(function(data){
       data = JSON.parse(data);
       //If user not previously authed
-      if(data.successful){
+      if(data.successful && !data.prevAuth){
         let twitterAuthWindow = window.location.href = data.url;
         var timer = setInterval(function() { 
           if(twitterAuthWindow.closed) {
@@ -51,6 +61,8 @@ function App() {
               getUser();
           }
         }, 1000);
+      }else{        
+        getUser();
       }
     });
   }
@@ -80,7 +92,6 @@ function App() {
       }else{
         setUser(null);
         console.log(data.errors);
-        alert(data.errors[0].message);
       }
     });
   } 
@@ -155,7 +166,7 @@ function App() {
           <div className='content'>
             <EnterScreen enter={enter}/>
             <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
-            <MainPage authUser={authUser} nuke={nuke}/>
+            <MainPage user={user} authUser={authUser} nuke={nuke}/>
             <Footer />
           </div>
       </div>

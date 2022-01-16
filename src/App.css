@@ -181,7 +181,8 @@ body{
     margin-right: 20px;
     width: calc(100% - 40px);
     -webkit-box-shadow: 0px 0px 44px 9px #000000; 
-    box-shadow: 0px 0px 44px 9px #000000;
+    box-shadow: 0px 0px 44px 9px #000000;    
+    border-radius: 5px;
 }
 
 .buttonWrapper{    
@@ -230,16 +231,6 @@ body{
     width: 100%;
     color: var(--font-color);
     text-align: center;
-}
-
-
-@media only screen and (max-width: 1200px) {
-
-}
-
-
-@media only screen and (max-width: 1300px) {
-
 }
 
 @media only screen and (max-width: 1150px) {
@@ -303,9 +294,12 @@ body{
         margin-bottom: 10px;
     }
 
+    .introVideo{
+        width: 700px;
+        margin-left: calc((100% / 2) - 350px);
+    }
+
 }
-
-
 
 @media only screen and (max-width: 900px) {
 
@@ -341,7 +335,22 @@ body{
 }
 
 
+
+@media only screen and (max-width: 700px) {
+
+    .introVideo{
+        width: 500px;
+        margin-left: calc((100% / 2) - 250px);
+    }
+}
+
+
 @media only screen and (max-width: 500px) {
+
+    .introVideo{
+        width: 300px;
+        margin-left: calc((100% / 2) - 150px);
+    }
 
 
     .button{
