@@ -15,7 +15,7 @@ function Intro(props){
         "Hi.",
         "I'm sure you're here for the same reason as many.",
         "Sick of seeing lions and apes that look like they were drawn by three year olds?",
-        "Annoyed of seeing CryptoBros circle-jerking thier way to the 'top'?",
+        "Annoyed at seeing CryptoBros circle-jerking thier way to the 'top'?",
         "Just want a much better Twitter timeline?",
         "Whatever the reason, NFT Nuke has you covered.",      
         "So go ahead. Atomize those CryptoBros."
@@ -57,7 +57,7 @@ function Intro(props){
     return(
         <>
             <div hidden className='introVideo' id='videoWrapper'>
-                <video id='video' className='video' onEnded={textIntro} src={introVideo} id="video"></video>
+                <video controls={true} id='video' className='video' onEnded={textIntro} src={introVideo} id="video"></video>
             </div>
             <div hidden id='introWrapper' className='intro'>
                 <p id="fadingSentence"></p>

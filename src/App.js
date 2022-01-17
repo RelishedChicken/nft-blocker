@@ -22,6 +22,11 @@ function App() {
   const[buttonClicked, setButtonClicked] = useState(false);
   const[user, setUser] = useState(null);
   const[authCheck, setAuthCheck] = useState(false);
+  const[spinner, setSpinner] = useState(null);
+
+  //Twitter stuff
+  const[blockList, setBlockList] = useState(null);
+  const[blockingUser, setBlockingUser] = useState("");
 
   //Check if auth url is there
   useEffect(() => {
@@ -67,8 +72,8 @@ function App() {
     });
   }
 
-  const signOut = () => {
-    
+  //Deauth user
+  const signOut = () => {    
     console.log("Deauthenticating user...");
     $.ajax({
       url: '/ajax/deauth.php'
@@ -96,12 +101,89 @@ function App() {
     });
   } 
 
+  //Get a list of NFTBros
+  const getBlockList = () => {
+    console.log("Grabbing list of users to nuke...");
+
+    $('#readyToBlock').fadeOut(()=>{
+      
+      $('#gettingBlocklist').fadeIn();
+
+      $.ajax({
+        url: '/ajax/get_recent_tweets.php?query=NFT'
+      }).done(function(data){
+  
+        data = JSON.parse(data);
+  
+        console.log(data);
+  
+        setBlockList(data);
+        
+      });
+
+    });
+  }
+
+  useEffect(() => {
+    if (blockList !== null) {
+      blockUsers();
+    }
+  }, [blockList]);
+
+  //Blocks NFTBros
+  const blockUsers = () =>{
+
+    console.log("Nuking users.....");
+
+    //Show nuking dialog    
+    $('#gettingBlocklist').fadeOut(()=>{
+      $('#blockingUser').fadeIn();
+      //Loop through 'story' and display
+      blockList.forEach((user, i) => {
+        //Time calculation to show each sentence
+        setTimeout(()=>{
+          setBlockingUser(user.name);
+        }, i * 100);
+      });
+
+      //Make faster spinner
+      //Nuke spin loop
+      let deg = 0;
+      clearInterval(spinner);
+      if(!buttonClicked){
+        let spinner = setInterval(() => {      
+          deg += 5;
+          $('.button').css('transform', 'rotate('+deg+'deg)');      
+          if(deg === 360){
+            deg = 0;
+          }
+        }, 2);
+        setButtonClicked(true);
+        setSpinner(spinner);
+      }
+
+      setTimeout(() => {
+        console.log("Users blocked")
+        $('#blockingUser').fadeOut(()=>{
+          $('#nuked').fadeIn();
+          clearInterval(spinner);
+          setTimeout(()=>{
+            $('#nuked').fadeOut(()=>{
+              $('#readyToBlock').fadeIn();
+            });
+          }, 5000)
+        })
+      }, blockList.length * 100);
+    });   
+
+  }
+
 
   //VV VISUALS VV
-
   //Enter page clicked
   const enter = (skip) => {
     console.log("User want's to nuke their twitter timeline...");
+
     if(!skip){
       $('.enterWrapper').fadeOut(() => {
         setStartIntro(true);        
@@ -132,6 +214,7 @@ function App() {
     $('#videoWrapper').fadeOut();  
     $('#introWrapper').fadeOut(() => {
       $('#buttonWrapper').fadeIn();
+      $('#readyToBlock').fadeIn();
       $('.menu').fadeIn();
       $('.footer').fadeIn();
     });
@@ -141,19 +224,26 @@ function App() {
   const nuke = () => {
     console.log("Nuking cypto bros....");
 
+    
+    $('#readyToBlock').fadeOut(() => {
+      //Nuke spin loop
+      let deg = 0;
+      if(!buttonClicked){
+        let spinner = setInterval(() => {      
+          deg += 5;
+          $('.button').css('transform', 'rotate('+deg+'deg)');      
+          if(deg === 360){
+            deg = 0;
+          }
+        }, 8);
+        setButtonClicked(true);
+        setSpinner(spinner);
+      }
 
-    //Nuke spin loop
-    let deg = 0;
-    if(!buttonClicked){
-      setInterval(() => {      
-        deg += 5;
-        $('.button').css('transform', 'rotate('+deg+'deg)');      
-        if(deg === 360){
-          deg = 0;
-        }
-      }, 2);
-      setButtonClicked(true);
-    }
+      getBlockList();
+    });
+
+    
 
   }
 
@@ -162,11 +252,11 @@ function App() {
   return (
     <>
       <div className='app'>
-          <Menu user={user} signOut={signOut}/>
+          <Menu user={user} signOut={signOut} />
           <div className='content'>
             <EnterScreen enter={enter}/>
             <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
-            <MainPage user={user} authUser={authUser} nuke={nuke}/>
+            <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser}/>
             <Footer />
           </div>
       </div>

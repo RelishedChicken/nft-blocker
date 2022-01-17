@@ -152,10 +152,47 @@ body{
 }
 
 .content{    
-    margin-top: 80px;
     float: left;
     width: 100%;
     height: calc(100% - 100px);    
+}
+
+.miniMenu{
+    float: left;
+    margin-right: 20px;
+    margin-top: 20px;
+    width: calc(100% - 20px);
+    cursor: pointer;
+}
+
+.miniMenuItem{
+    float: right;
+    color: var(--font-color);
+}
+
+.anExplanation{
+    position: absolute;
+    right: 0;
+    width: 600px;
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: black;
+    opacity: 0.8;
+    max-height: 700px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    padding: 20px;
+    color: var(--font-color);
+}
+
+
+.anExplanation p{
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.anExplanation h2{
+    border-bottom: 4px solid var(--font-color);
 }
 
 .intro{
@@ -179,6 +216,7 @@ body{
 .video{
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 90px;
     width: calc(100% - 40px);
     -webkit-box-shadow: 0px 0px 44px 9px #000000; 
     box-shadow: 0px 0px 44px 9px #000000;    
@@ -198,26 +236,26 @@ body{
 }
 
 .button{
-    margin-top: 100px;
+    margin-top: 80px;
     width: 400px;
     margin-left: calc((100% / 2) - 200px);
     margin-right: calc((100% / 2) - 200px);
 }
 
-.twitterConnect{
-    margin-top: 50px;
-    border: var(--font-color) solid 2px;
-    background-color: #00000000;
+.blockingUser{
+    width: 100%;
     color: var(--font-color);
-    font-size: 30px;
-    width: 400px;
-    margin-left: calc((100% / 2) - 200px);
-    margin-right: calc((100% / 2) - 200px);    
-    font-family: myFirstFont;
-    cursor: pointer;
+    text-align: center;
 }
 
 .link{
+    color: var(--font-color);
+    text-decoration: none;
+    border-bottom: var(--main-color) 2px solid;
+
+}
+
+a{
     color: var(--font-color);
     text-decoration: none;
     border-bottom: var(--main-color) 2px solid;
@@ -236,7 +274,7 @@ body{
 @media only screen and (max-width: 1150px) {
 
     .button{
-        margin-top: 0;
+        margin-top: 100px;
     }
 
     .menu{
@@ -280,7 +318,6 @@ body{
         margin: 0;
         margin-top: 5px;
         width: 100%;
-        margin-bottom: 10px;
         text-align: center;
     }   
 
@@ -292,6 +329,11 @@ body{
         margin-bottom: 10px;
         text-align: center;
         margin-bottom: 10px;
+    }
+
+    
+    .miniMenu{
+        display: none;
     }
 
     .introVideo{
@@ -354,7 +396,7 @@ body{
 
 
     .button{
-        margin-top: 0;
+        margin-top: 80px;
         width: 250px;
         margin-left: calc((100% / 2) - 125px);
         margin-right: calc((100% / 2) - 125px);
