@@ -237,7 +237,6 @@ body{
 }
 
 .button{
-    margin-top: 80px;
     width: 400px;
     margin-left: calc((100% / 2) - 200px);
     margin-right: calc((100% / 2) - 200px);
@@ -270,6 +269,16 @@ a{
     width: 100%;
     color: var(--font-color);
     text-align: center;
+}
+
+.capeText{
+    color: var(--font-color);
+    font-size: 40px;
+}
+
+.capeTextSub{
+    color: var(--font-color);
+    font-size: 35px;
 }
 
 @media only screen and (max-width: 1150px) {

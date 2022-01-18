@@ -14,6 +14,7 @@ import EnterScreen from './components/EnterScreen';
 import Intro from './components/Intro';
 import MainPage from './components/MainPage';
 import Footer from './components/Footer';
+import Cape from './components/Cape';
 
 function App() {
 
@@ -23,20 +24,29 @@ function App() {
   const[user, setUser] = useState(null);
   const[authCheck, setAuthCheck] = useState(false);
   const[spinner, setSpinner] = useState(null);
+  const[nukesDropped, setNukesDropped] = useState(-1);
+  const[cape] = useState(false);
 
   //Twitter stuff
   const[blockList, setBlockList] = useState(null);
   const[blockingUser, setBlockingUser] = useState("");  
-  const[blockedUsers, setBlockedUsers] = useState([{urlName: ""}]);
+  const[blockedUsers, setBlockedUsers] = useState([{urlName: ""}]);  
 
   //Check if auth url is there
   useEffect(() => {
+
+    if(nukesDropped === -1){
+      getNukeCount();
+    }
+
     if(window.location.href.includes('?auth=true') && !authCheck){
       enter(true);
       setAuthCheck(true);
+      getNukeCount();
     }else if(window.location.href.includes('?auth=true') && user == null && !authCheck){
       authUser();
       setAuthCheck(true);
+      getNukeCount();
     }else if(user == null && !authCheck){
       $.ajax({
         url: '/ajax/check_auth.php'
@@ -45,9 +55,12 @@ function App() {
         if(data == true){
           enter(true);
           getUser();
+          setAuthCheck(true);
+          getNukeCount();
         }
       })
     }
+    
   })
 
   //Get auth URL
@@ -160,27 +173,12 @@ function App() {
         }, i * 100);
       });
 
-      //Make faster spinner
-      //Nuke spin loop
-      let deg = 0;
-      clearInterval(spinner);
-      if(!buttonClicked){
-        let spinner = setInterval(() => {      
-          deg += 5;
-          $('.button').css('transform', 'rotate('+deg+'deg)');      
-          if(deg === 360){
-            deg = 0;
-          }
-        }, 2);
-        setButtonClicked(true);
-        setSpinner(spinner);
-      }
-
       setTimeout(() => {
         console.log("Users blocked")
         $('#blockingUser').fadeOut(()=>{
           $('#nuked').fadeIn();
           clearInterval(spinner);
+          updateNukeCount();
           setTimeout(()=>{
             $('#nuked').fadeOut(()=>{
               $('#readyToBlock').fadeIn();
@@ -255,24 +253,56 @@ function App() {
       }
 
       getBlockList();
-    });
 
+    });
     
 
   }
 
+  //Get counter
+  const getNukeCount = () => {
+    $.ajax({
+      url: "/ajax/nukes.php",
+      data: {
+        method: 'get'
+      }
+    }).done(function(data){
+      data = JSON.parse(data);
+      setNukesDropped(data.nukes_dropped);
+    });
+  }
+
+  //Set nuke counter
+  const updateNukeCount = () => {
+    $.ajax({
+      url: "/ajax/nukes.php",
+      data: {
+        method: 'set'
+      }
+    }).done(function(data){
+      data = JSON.parse(data);
+      setNukesDropped(data.nukes_dropped);
+    });
+
+  }
 
   //Render
   return (
     <>
       <div className='app'>
           <Menu user={user} signOut={signOut} />
-          <div className='content'>
-            <EnterScreen enter={enter}/>
-            <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
-            <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser} blockedUser={blockedUsers[Math.floor(Math.random()*blockedUsers.length)]}/>
-            <Footer />
-          </div>
+          {cape ?          
+            <div className='content'>
+              <Cape />
+            </div>
+            :
+            <div className='content'>
+              <EnterScreen enter={enter}/>
+              <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
+              <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser} blockedUser={blockedUsers[Math.floor(Math.random()*blockedUsers.length)]} nukesDropped={nukesDropped}/>
+              <Footer />
+            </div>
+          }
       </div>
       <div className='apeCape'></div>
     </>

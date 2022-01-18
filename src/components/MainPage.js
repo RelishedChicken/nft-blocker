@@ -5,7 +5,7 @@ import button from '../media/button.svg'
 
 //Imports
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import $ from 'jquery';
 
 function MainPage(props){
@@ -22,9 +22,9 @@ function MainPage(props){
 
     const hiddenPanel = () => {
         if(showReasoning){
-            $('.anExplanation').fadeIn();
-        }else{
             $('.anExplanation').fadeOut();
+        }else{
+            $('.anExplanation').fadeIn();
         }
         setShowReasoning(!showReasoning);
     }
@@ -44,7 +44,7 @@ function MainPage(props){
                 <p>Cryptocurrencies alone already cause a large amount of environmental damage, and the existence of NFT’s is a reason to use and create more crypto, for stupid images of apes and lions.</p>
                 <p>There has been a trend of most NFT’s being stolen artwork. It’s funny how a CryptoBro is happy with right clicking someone’s art but burst into tears when we right click their awful, mutated abomination.</p>
                 <p>The worst bit is that an NFT does not give you rights to the image. It’s a representation of the token you’ve bought. Some numbers. Most people don’t know this and is one of the reasons it’s so viral. It’s a huge scam pushed by influencers that’s snowballed out of control.</p>
-                <p>Long story short, you shouldn’t like these things. They cause environmental damage, don’t actually do anything, are made of stolen art and are essentially the biggest scam of the 20th century.</p>
+                <p>Long story short, you shouldn’t like these things. They cause environmental damage, don’t actually do anything, are made of stolen art and are essentially the biggest scam of the 21st century.</p>
             </div>  
             <img onClick={() => handleButton()} className='button' src={button} alt='Press to Nuke'></img>            
             <div hidden id="readyToBlock" className="blockingUser">
@@ -60,7 +60,10 @@ function MainPage(props){
             </div>
             <div hidden id="nuked" className="blockingUser">
                 <h1>That's it. That's all the CryptoBros.</h1>
-                <h2>Here's someone you eviscerated: <a target={'_blank'} href={'https://www.twitter.com/' + props.blockedUser.urlName} >@{props.blockedUser.urlName}</a></h2>
+                <h2>Here's someone you eviscerated: <a target={'_blank'} href={'https://www.twitter.com/' + props.blockedUser.urlName} rel="noreferrer" >@{props.blockedUser.urlName}</a></h2>
+            </div>
+            <div id='nukesDropped' className="blockingUser">
+                <h3>{props.nukesDropped} nukes dropped so far.</h3>
             </div>
         </div>
     );

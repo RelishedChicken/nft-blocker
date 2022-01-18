@@ -7,9 +7,6 @@ import fakeUser from '../media/button.svg';
 //Imports
 import React from 'react';
 import {useState, useEffect} from 'react';
-import $ from 'jquery';
-
-
 
 function Menu(props) {
 
@@ -33,7 +30,7 @@ function Menu(props) {
 
     const[superRareSlogans] = useState([
       "Testicle is the medical term - (<a href='https://twitter.com/_ThomasPearson_' >TP</a>)",
-      "FUCK NFTS. - (<a href='https://twitter.com/vadgamaveeraj' >MysteriousMan</a>)",
+      "FUCK NFTS. - (<a href='https://twitter.com/vadgamaveeraj' >?</a>)",
       "#ThomasPearson",
     ]);
 
@@ -60,7 +57,7 @@ function Menu(props) {
 
       }
 
-    })
+    }, [firstLoad, superRareSlogans, slogans])
 
     return(
         <div hidden className='menu'>
