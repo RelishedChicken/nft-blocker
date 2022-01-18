@@ -171,6 +171,7 @@ body{
 }
 
 .anExplanation{
+    z-index: 99;
     position: absolute;
     right: 0;
     width: 600px;

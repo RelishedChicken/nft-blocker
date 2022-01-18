@@ -26,7 +26,8 @@ function App() {
 
   //Twitter stuff
   const[blockList, setBlockList] = useState(null);
-  const[blockingUser, setBlockingUser] = useState("");
+  const[blockingUser, setBlockingUser] = useState("");  
+  const[blockedUsers, setBlockedUsers] = useState([{urlName: ""}]);
 
   //Check if auth url is there
   useEffect(() => {
@@ -80,7 +81,6 @@ function App() {
     }).done(function(data){
       window.location.href = "https://www.nftnuke.co.uk";
     });
-
   }
 
   //Get user data
@@ -134,6 +134,20 @@ function App() {
   const blockUsers = () =>{
 
     console.log("Nuking users.....");
+
+    //Request server to block all users instantly...
+    $.ajax({
+      url: "/ajax/block_users.php",
+      data: {
+        users: blockList
+      }
+    }).done(function(data){
+      console.log("Block request sent...");
+      data = JSON.parse(data);
+      console.log("Users blocked: ");
+      console.log(data);
+      setBlockedUsers(data);
+    })
 
     //Show nuking dialog    
     $('#gettingBlocklist').fadeOut(()=>{
@@ -256,7 +270,7 @@ function App() {
           <div className='content'>
             <EnterScreen enter={enter}/>
             <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
-            <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser}/>
+            <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser} blockedUser={blockedUsers[Math.floor(Math.random()*blockedUsers.length)]}/>
             <Footer />
           </div>
       </div>

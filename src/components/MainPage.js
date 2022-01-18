@@ -49,6 +49,7 @@ function MainPage(props){
             <img onClick={() => handleButton()} className='button' src={button} alt='Press to Nuke'></img>            
             <div hidden id="readyToBlock" className="blockingUser">
                 <h1>Ready to launch?</h1>
+                <h2>By pressing this button, you will instantly block anyone currently interacting with #NFT.</h2>
             </div>                       
             <div hidden id="gettingBlocklist" className="blockingUser">
                 <h1>Getting CryptoBros....</h1>
@@ -59,6 +60,7 @@ function MainPage(props){
             </div>
             <div hidden id="nuked" className="blockingUser">
                 <h1>That's it. That's all the CryptoBros.</h1>
+                <h2>Here's someone you eviscerated: <a target={'_blank'} href={'https://www.twitter.com/' + props.blockedUser.urlName} >@{props.blockedUser.urlName}</a></h2>
             </div>
         </div>
     );
