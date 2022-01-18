@@ -35,7 +35,6 @@ function Menu(props) {
     ]);
 
     const[currentSlogan, setCurrentSlogan] = useState("");
-
     const[firstLoad, setFirstLoad] = useState(true);
 
     //Onload

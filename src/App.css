@@ -294,24 +294,24 @@ a{
     .menuItemUser{
         width: 100%;
         border-top: 4px solid var(--font-color);
+        
+        border-bottom: 4px solid var(--font-color);
     }
 
     .user{
-        float: left;
-        width: 100%;
         margin: 0;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: calc(50% - 95px);
         margin-top: 10px;
         display: block;
-        height: 80px;
+        width: 200px;
+        margin: 10px 0 0 calc(50% - 100px);
     }
 
     .userProfile{
         float: left;
         margin: 0;
-        margin-bottom: 10px;
-        width: 100%;
+        margin-bottom: 10px;        
+        margin-left: calc(50% - 25px);
     }
 
 
@@ -320,7 +320,6 @@ a{
         width: 100%;
         padding-bottom: 10px;
         text-align: center;
-        border-bottom: 4px solid var(--main-color);
     }
 
     .userName{
@@ -363,7 +362,7 @@ a{
     .menuItemTitle{
         margin: 0;
         margin-left: calc((100% / 2) - 112px);
-        width: 224px;        
+        width: auto;        
     }
 
     .menuItemUser{        
@@ -406,10 +405,18 @@ a{
 
 
     .button{
-        margin-top: 80px;
-        width: 250px;
-        margin-left: calc((100% / 2) - 125px);
-        margin-right: calc((100% / 2) - 125px);
+        margin-top: 15px;
+        width: 200px;
+        margin-left: calc((100% / 2) - 100px);
+        margin-right: calc((100% / 2) - 100px);
+    }
+
+    .blockingUser h1{
+        font-size: 30px;
+    }
+
+    .blockingUser h1{
+        font-size: 23px;
     }
 
 

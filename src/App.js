@@ -25,7 +25,7 @@ function App() {
   const[authCheck, setAuthCheck] = useState(false);
   const[spinner, setSpinner] = useState(null);
   const[nukesDropped, setNukesDropped] = useState(-1);
-  const[cape] = useState(false);
+  const[cape] = useState(true);
 
   //Twitter stuff
   const[blockList, setBlockList] = useState(null);
@@ -66,24 +66,7 @@ function App() {
   //Get auth URL
   const authUser = () => {
     console.log("Authenticating user...");
-    $.ajax({
-      url: '/ajax/twitter_auth.php'
-    }).done(function(data){
-      data = JSON.parse(data);
-      //If user not previously authed
-      if(data.successful && !data.prevAuth){
-        let twitterAuthWindow = window.location.href = data.url;
-        var timer = setInterval(function() { 
-          if(twitterAuthWindow.closed) {
-              clearInterval(timer);
-              //Now get user info that its available (once window closes)
-              getUser();
-          }
-        }, 1000);
-      }else{        
-        getUser();
-      }
-    });
+    window.location.replace('/ajax/twitter_auth.php');
   }
 
   //Deauth user
