@@ -25,12 +25,12 @@ function App() {
   const[authCheck, setAuthCheck] = useState(false);
   const[spinner, setSpinner] = useState(null);
   const[nukesDropped, setNukesDropped] = useState(-1);
-  const[cape] = useState(true);
 
   //Twitter stuff
   const[blockList, setBlockList] = useState(null);
   const[blockingUser, setBlockingUser] = useState("");  
   const[blockedUsers, setBlockedUsers] = useState([{urlName: ""}]);  
+  const[blockListUser, setBlockListUser] = useState("");  
 
   //Check if auth url is there
   useEffect(() => {
@@ -38,6 +38,8 @@ function App() {
     if(nukesDropped === -1){
       getNukeCount();
     }
+
+    
 
     if(window.location.href.includes('?auth=true') && !authCheck){
       enter(true);
@@ -47,7 +49,7 @@ function App() {
       authUser();
       setAuthCheck(true);
       getNukeCount();
-    }else if(user == null && !authCheck){
+    }else if( !authCheck){
       $.ajax({
         url: '/ajax/check_auth.php'
       }).done(function(data){
@@ -131,44 +133,60 @@ function App() {
 
     console.log("Nuking users.....");
 
-    //Request server to block all users instantly...
+    //Minify url names to CSV
+    var urlNames = '';
+    blockList.forEach(user => {
+      urlNames += user.urlName + ",";
+    });
+    urlNames = urlNames.slice(0, -1);
+    console.log(urlNames);
+
+    //Set the random user to show that you 'blocked'    
+    setBlockListUser(blockList[Math.floor(Math.random()*blockList.length)].urlName);    
+
+    //Button into nuke mode
+    $('.button')[0].id = 'nukeMode';
+
+    //Request server to block all users instantly...    
+    console.log("Block request sent...");
     $.ajax({
       url: "/ajax/block_users.php",
+      type: 'POST',
       data: {
-        users: blockList
+        users: urlNames
       }
     }).done(function(data){
-      console.log("Block request sent...");
       data = JSON.parse(data);
       console.log("Users blocked: ");
       console.log(data);
       setBlockedUsers(data);
-    })
+    });
 
     //Show nuking dialog    
     $('#gettingBlocklist').fadeOut(()=>{
       $('#blockingUser').fadeIn();
-      //Loop through 'story' and display
+      
       blockList.forEach((user, i) => {
-        //Time calculation to show each sentence
         setTimeout(()=>{
           setBlockingUser(user.name);
-        }, i * 100);
+        }, i * 200);
       });
 
       setTimeout(() => {
         console.log("Users blocked")
         $('#blockingUser').fadeOut(()=>{
-          $('#nuked').fadeIn();
+          $('#nuked').fadeIn();          
+          $('.button')[0].id = '';
           clearInterval(spinner);
-          updateNukeCount();
+          updateNukeCount();  
           setTimeout(()=>{
             $('#nuked').fadeOut(()=>{
               $('#readyToBlock').fadeIn();
+              setButtonClicked(false);
             });
           }, 5000)
         })
-      }, blockList.length * 100);
+      }, blockList.length * 200);
     });   
 
   }
@@ -233,9 +251,9 @@ function App() {
         }, 8);
         setButtonClicked(true);
         setSpinner(spinner);
+        getBlockList();
       }
 
-      getBlockList();
 
     });
     
@@ -274,7 +292,7 @@ function App() {
     <>
       <div className='app'>
           <Menu user={user} signOut={signOut} />
-          {cape ?          
+          {false ?          
             <div className='content'>
               <Cape />
             </div>
@@ -282,7 +300,7 @@ function App() {
             <div className='content'>
               <EnterScreen enter={enter}/>
               <Intro startIntro={startIntro} introComplete={introComplete} videoComplete={videoComplete}/>
-              <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser} blockedUser={blockedUsers[Math.floor(Math.random()*blockedUsers.length)]} nukesDropped={nukesDropped}/>
+              <MainPage user={user} authUser={authUser} nuke={nuke} blockingUser={blockingUser} blockListUser={blockListUser} nukesDropped={nukesDropped}/>
               <Footer />
             </div>
           }

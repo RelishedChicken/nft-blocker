@@ -57,7 +57,7 @@ function Intro(props){
     return(
         <>
             <div hidden className='introVideo' id='videoWrapper'>
-                <video controls={true} id='video' className='video' onEnded={textIntro} src={introVideo} id="video"></video>
+                <video controls={true} style={{backgroundColor: 'black'}}id='video' className='video' onEnded={textIntro} src={introVideo} id="video"></video>
             </div>
             <div hidden id='introWrapper' className='intro'>
                 <p id="fadingSentence"></p>

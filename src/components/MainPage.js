@@ -57,10 +57,15 @@ function MainPage(props){
             <div hidden id="blockingUser" className="blockingUser">
                 <h1>NUKING</h1>
                 <h2>{props.blockingUser}</h2>
+                <h3>Feel free to leave this page, we got this.</h3>
             </div>
             <div hidden id="nuked" className="blockingUser">
                 <h1>That's it. That's all the CryptoBros.</h1>
-                <h2>Here's someone you eviscerated: <a target={'_blank'} href={'https://www.twitter.com/' + props.blockedUser.urlName} rel="noreferrer" >@{props.blockedUser.urlName}</a></h2>
+                {props.blockListUser === '' ?
+                    <h2>Let me find someone you obliterated...</h2>
+                    :
+                    <h2>Here's someone you eviscerated: <a target={'_blank'} href={'https://www.twitter.com/' + props.blockListUser} rel="noreferrer" >@{props.blockListUser}</a></h2>
+                }                
             </div>
             <div id='nukesDropped' className="blockingUser">
                 <h3>{props.nukesDropped} nukes dropped so far.</h3>

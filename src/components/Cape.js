@@ -9,7 +9,7 @@ import Countdown from 'react-countdown';
 
 function Cape(){
 
-    const[doomsDay] = useState('2022-01-21 20:30:00');
+    const[doomsDay] = useState('2022/01/21 20:30:00');
 
     const render = ({ days, hours, minutes, seconds, completed }) => {
         return <span>{days}D {hours}H {minutes}M {seconds}S</span>

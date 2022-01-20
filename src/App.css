@@ -238,8 +238,15 @@ body{
 
 .button{
     width: 400px;
-    margin-left: calc((100% / 2) - 200px);
-    margin-right: calc((100% / 2) - 200px);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#nukeMode{    
+    background-color: red;
+    border-radius: 360px;
+    padding: 10px;
 }
 
 .blockingUser{
@@ -308,6 +315,7 @@ a{
     }
 
     .userProfile{
+        display: none;
         float: left;
         margin: 0;
         margin-bottom: 10px;        
@@ -325,7 +333,7 @@ a{
     .userName{
         float: left;
         margin: 0;
-        margin-top: 5px;
+        margin-top: 10px;
         width: 100%;
         text-align: center;
     }   
@@ -348,6 +356,14 @@ a{
     .introVideo{
         width: 700px;
         margin-left: calc((100% / 2) - 350px);
+    }
+
+    #blockingUser h2{
+        font-size: 17px;
+    }
+
+    #slogan{        
+        font-size: 15px;
     }
 
 }
